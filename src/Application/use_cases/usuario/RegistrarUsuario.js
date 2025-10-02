@@ -7,14 +7,16 @@ export default class CrearUsuario {
     }
   
     async execute(userData) {
-      const { nombre, email, password } = userData;
+      const { id, nombre, email, password, rol } = userData;
       // encriptar la contraseña antes de guardar
       const hashedPassword = await this.passwordEncrypter.hashPassword(password);
 
       const usuarioGuardado = new Usuario({
+      id,
       nombre,
       email,
       password: hashedPassword,
+      rol
     });
 
       return await this.userRepository.create(usuarioGuardado);

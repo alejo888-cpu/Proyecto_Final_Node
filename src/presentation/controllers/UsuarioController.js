@@ -8,10 +8,12 @@ const passwordEncrypter = new PasswordEncrypter()
 
 export const createUser = async (req, res) => {
   try {
+    console.log("Datos recibidos en createUser:", req.body);
     const createUser = new CrearUsuario(userRepository, passwordEncrypter)
     const user = await createUser.execute(req.body)
     res.status(201).json(user);
   } catch (err) {
+    console.error("Error en createUser:", err.message);
     res.status(500).json({ error: err.message })
   }
 }
